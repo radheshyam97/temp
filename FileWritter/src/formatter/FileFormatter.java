@@ -1,10 +1,15 @@
 package formatter;
 
+import vo.BatchTrailerRecord;
 import vo.DetailRecordVO;
 import vo.DirectMarketingCardNotPresentAddendumRecord;
+import vo.FileTrailerRecord;
 import vo.MerchantAddressAddendumRecord;
 import vo.PurchasingCardAddendumRecord;
 import vo.PurchasingCardFreightORShippingAddendumForVisa;
+import vo.PurchasingCardLineItemAddendumForMasterCard;
+import vo.PurchasingCardLineItemAddendumForVisaRecord;
+import vo.PurchasingCardMasterCardPaymentGatewayAddendumRecord;
 
 public class FileFormatter {
 
@@ -13,6 +18,93 @@ public class FileFormatter {
 
 	private final static int LEFT = 1;
 	private final static int RIGHT = -1;
+
+	public static String formatFileTrailerRecord(FileTrailerRecord rec) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(formatValue(rec.getRecordType(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getFilePurchasesCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFilePurchasesAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileReturnCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileReturnAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileTotalCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileNetAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileNetSign(), 1, SPACE, LEFT));
+		sb.append(formatValue(rec.getFileRecordCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileCreateDate(), 8, ZERO, RIGHT));
+		sb.append(formatValue(rec.getFileCreateTime(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getReserved(), 122, SPACE, LEFT));
+
+		return sb.toString();
+	}
+
+	public static String formatBatchTrailerRecord(BatchTrailerRecord rec) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(formatValue(rec.getRecordType(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getBatchPurchasesCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchPurchasesAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchReturnCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchReturnAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchTotalCount(), 6, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchNetAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getBatchNetSign(), 1, SPACE, LEFT));
+		sb.append(formatValue(rec.getBatchNumber(), 11, ZERO, RIGHT));
+		sb.append(formatValue(rec.getReserved(), 131, SPACE, LEFT));
+		return sb.toString();
+	}
+
+	public static String formatPurchasingCardMasterCardPaymentGatewayAddendumRecord(
+			PurchasingCardMasterCardPaymentGatewayAddendumRecord rec) {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(formatValue(rec.getRecordType(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getInvoiceNumber(), 25, SPACE, LEFT));
+		sb.append(formatValue(rec.getReserved(), 172, SPACE, LEFT));
+
+		return sb.toString();
+	}
+
+	public static String formatPurchasingCardLineItemAddendumForMasterCardRecord(
+			PurchasingCardLineItemAddendumForMasterCard rec) {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(formatValue(rec.getRecordType(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getItemDescription(), 35, SPACE, LEFT));
+		sb.append(formatValue(rec.getProductCode(), 12, SPACE, LEFT));
+		sb.append(formatValue(rec.getQuantity(), 5, ZERO, RIGHT));
+		sb.append(formatValue(rec.getUnitOfMeasure(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getExtendedItemAmount(), 9, ZERO, RIGHT));
+		sb.append(formatValue(rec.getDebitORCreditIndicator(), 1, SPACE, LEFT));
+		sb.append(formatValue(rec.getNetORGrossIndicator(), 1, SPACE, LEFT));
+		sb.append(formatValue(rec.getDiscountIndicator(), 1, SPACE, LEFT));
+		sb.append(formatValue(rec.getDiscountAmount(), 9, ZERO, RIGHT));
+		sb.append(formatValue(rec.getTaxRateApplied(), 5, SPACE, LEFT));
+		sb.append(formatValue(rec.getTaxTypeApplied(), 4, SPACE, LEFT));
+		sb.append(formatValue(rec.getTaxAmount(), 9, ZERO, RIGHT));
+		sb.append(formatValue(rec.getAlternateTaxIdentifier(), 15, SPACE, LEFT));
+		sb.append(formatValue(rec.getReserved(), 88, SPACE, LEFT));
+
+		return sb.toString();
+	}
+
+	public static String formatPurchasingCardLineItemAddendumForVisaRecord(
+			PurchasingCardLineItemAddendumForVisaRecord rec) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(formatValue(rec.getRecordType(), 3, SPACE, LEFT));
+		sb.append(formatValue(rec.getItemDescription(), 25, SPACE, LEFT));
+		sb.append(formatValue(rec.getProductCode(), 12, SPACE, LEFT));
+		sb.append(formatValue(rec.getItemCommodityCode(), 12, SPACE, LEFT));
+		sb.append(formatValue(rec.getQuantity(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getUnitOfMeasure(), 12, SPACE, LEFT));
+		sb.append(formatValue(rec.getUnitCost(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getDiscountPerlineItem(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getVATORTaxRate(), 4, ZERO, RIGHT));
+		sb.append(formatValue(rec.getVATORTaxAmount(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getLineItemTotal(), 12, ZERO, RIGHT));
+		sb.append(formatValue(rec.getReserved(), 72, SPACE, LEFT));
+		return sb.toString();
+	}
 
 	public static String formatPurchasingCardFreightORShippingAddendumForVisa(
 			PurchasingCardFreightORShippingAddendumForVisa rec) {

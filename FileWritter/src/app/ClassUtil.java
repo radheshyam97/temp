@@ -4,9 +4,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
- import vo.DirectMarketingCardNotPresentAddendumRecord;
+import vo.BatchTrailerRecord;
+import vo.DirectMarketingCardNotPresentAddendumRecord;
+import vo.FileTrailerRecord;
 import vo.PurchasingCardAddendumRecord;
 import vo.PurchasingCardFreightORShippingAddendumForVisa;
+import vo.PurchasingCardLineItemAddendumForMasterCard;
+import vo.PurchasingCardLineItemAddendumForVisaRecord;
+import vo.PurchasingCardMasterCardPaymentGatewayAddendumRecord;
 
 public class ClassUtil {
 	public static void main(String[] args) {
@@ -15,7 +20,7 @@ public class ClassUtil {
 
 public   static void printAllMethod() {
 	
-	Class curClass = PurchasingCardFreightORShippingAddendumForVisa.class;
+	Class curClass = FileTrailerRecord.class;
 	Method[] allMethods = curClass.getMethods();
 	List<Method> setters = new ArrayList<Method>();
 	for(Method method : allMethods) {
